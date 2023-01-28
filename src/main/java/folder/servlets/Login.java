@@ -74,9 +74,18 @@ public class Login extends HttpServlet {
     		session.setAttribute("cinU", uti.getCinU());
     		session.setAttribute("loginU", uti.getLoginU());
     		session.setAttribute("typeU", uti.getTypeU());
-    		response.sendRedirect("Pets");
     		
-
+    		if(uti.getTypeU().equals("Admin")) {
+    			System.out.println("Dans espace Admin");
+	    		response.sendRedirect("Pets");
+    		}
+    		
+    		else {
+    			System.out.println("Dans espace client");
+    			//on va chnager cette page par une autre par défaut: par exemple réservation.
+    			this.getServletContext().getRequestDispatcher("/UserSpace/home.jsp").forward( request, response );
+    		}
+    		
     		
     	}
     	
@@ -90,8 +99,13 @@ public class Login extends HttpServlet {
 		String cin = (String) session.getAttribute("cinU");
 		user=userDAO.find(cin);
 		request.setAttribute("user",user);
-		
-		this.getServletContext().getRequestDispatcher("/AdminSpace/myProfile.jsp").forward(request, response);	
+		String typeU = (String) session.getAttribute("typeU");
+		if(typeU.equals("Admin")) {
+			this.getServletContext().getRequestDispatcher("/AdminSpace/myProfile.jsp").forward(request, response);
+		}
+		else {
+			this.getServletContext().getRequestDispatcher("/UserSpace/myProfile.jsp").forward(request, response);	
+		}
     }
     
     // Modification des infos de user (without pwd)
@@ -114,7 +128,14 @@ public class Login extends HttpServlet {
     //Affichage du formulaire du changement de mot de passe
     
     public void editPwd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
-    	this.getServletContext().getRequestDispatcher("/AdminSpace/editPwd.jsp").forward(request, response);	
+    	HttpSession session=request.getSession();
+    	String typeU = (String) session.getAttribute("typeU");
+    	if(typeU.equals("Admin")) {
+    		this.getServletContext().getRequestDispatcher("/AdminSpace/editPwd.jsp").forward(request, response);
+    	}
+    	else {
+    		this.getServletContext().getRequestDispatcher("/UserSpace/editPwd.jsp").forward(request, response);
+    	}
     }
     
     //Taitement des données du changement de mot de passe
@@ -122,6 +143,7 @@ public class Login extends HttpServlet {
     	//get the cin of th user
 		HttpSession session=request.getSession();
 		String cin = (String) session.getAttribute("cinU");
+		String typeU = (String) session.getAttribute("typeU");
 		//select the hashed pwd of the user 
 		User user=userDAO.find(cin);
 		String mdpActSha1=user.getPwdU();
@@ -134,16 +156,26 @@ public class Login extends HttpServlet {
 			System.out.println("mdp current Form chiffré : "+mdpActFSha1);
 			if(!mdpActSha1.equals(mdpActFSha1)) {
    			  	String pwdErrA="Mot de passe incorrect!";
-   			  	request.setAttribute("pwdErrA",pwdErrA);      	
-   			  	this.getServletContext().getRequestDispatcher("/AdminSpace/editPwd.jsp").forward(request, response);	
+   			  	request.setAttribute("pwdErrA",pwdErrA);
+   			  	if(typeU.equals("Admin")) {
+   			  		this.getServletContext().getRequestDispatcher("/AdminSpace/editPwd.jsp").forward(request, response);
+   			  	}
+   			  	else {
+   			  		this.getServletContext().getRequestDispatcher("/UserSpace/editPwd.jsp").forward(request, response);
+   			  	}
 			}
 			else {
 				String mdp=request.getParameter("pwdU");
 				String confirmMdp=request.getParameter("confirmPwdU");
 				if(!mdp.equals(confirmMdp)) {
 	   			  	String pwdErrC="Mots de passe différents!";
-	   			  	request.setAttribute("pwdErrC",pwdErrC);      	
-	   			  	this.getServletContext().getRequestDispatcher("/AdminSpace/editPwd.jsp").forward(request, response);
+	   			  	request.setAttribute("pwdErrC",pwdErrC);
+	   			  	if(typeU.equals("Admin")) {
+	   			  		this.getServletContext().getRequestDispatcher("/AdminSpace/editPwd.jsp").forward(request, response);
+	   			  	}
+	   			  	else {
+	   			  		this.getServletContext().getRequestDispatcher("/UserSpace/editPwd.jsp").forward(request, response);
+	   			  	}
 				}
 				else {
 					userDAO.updatePwd(cin, confirmMdp);
@@ -199,6 +231,9 @@ public class Login extends HttpServlet {
 		  case "editPwd":
 			  this.editPwd(request, response);
 			  break;
+		  case "out":
+			  this.logOut(request, response);
+			    break;
 
 		default:
 			this.signInForm(request, response);

@@ -13,17 +13,9 @@
                     </div>
                 </div>
                 </a>
-                <div class="navbar-nav w-100">
-                   <div class="nav-item dropdown">
-                        <a id="petsL" href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-sharp fa-solid fa-cat"></i>Animaux</a>
-                        <div class="dropdown-menu bg-transparent border-0">
-                            <a id="allPets" href="Pets" class="dropdown-item">Liste</a>
-                            <a id="addPet" href="Pets?action=addForm" class="dropdown-item">Ajouter</a>
-                        </div>
-                    </div>
-                
-                    <a id="clients" href="Login?action=clients" class="nav-item nav-link"><i class="fa-solid fa-users"></i>Clients</a>
-                    <a href="#" class="nav-item nav-link"><i class="fa-solid fa-bag-shopping"></i>Ventes</a>
+                <div class="navbar-nav w-100">              
+                    
+                    <a href="#" class="nav-item nav-link"><i class="fa-solid fa-bag-shopping"></i>Réservation</a>
                     <a href="#" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping"></i>Achat</a>
                     <a href="Login?action=out" class="nav-item nav-link"><i class="fa-sharp fa-solid fa-arrow-right-from-bracket"></i>Log out</a>
                     

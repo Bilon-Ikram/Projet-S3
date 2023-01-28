@@ -39,7 +39,7 @@
 
 	} else {
 	%>
-	<%@ include file='dashboard.jsp'%>
+	<%@ include file='dashboardUser.jsp'%>
 	<div class="inner-content">
 		<div class="container mt-5">
         <div class="card">
