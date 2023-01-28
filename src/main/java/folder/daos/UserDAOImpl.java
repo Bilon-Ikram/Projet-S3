@@ -27,6 +27,7 @@ public class UserDAOImpl implements UserDAO {
         this.daoFactory = daoFactory;
     }
     
+    //Création d'un compte utilisateur: client
     @Override
 	public void create(User user) throws DAOException{
         Connection connexion = null;
@@ -60,7 +61,7 @@ public class UserDAOImpl implements UserDAO {
     }
     
     //Use Secure Hash Algorithm 1 to hash users passwords
-    public static String sha1(String input) throws NoSuchAlgorithmException {
+    public  String sha1(String input) throws NoSuchAlgorithmException { //kant hna static w 7yedtha
         MessageDigest mDigest = MessageDigest.getInstance("SHA1");
         byte[] result = mDigest.digest(input.getBytes());
         StringBuffer sb = new StringBuffer();
@@ -71,6 +72,7 @@ public class UserDAOImpl implements UserDAO {
         return sb.toString();
     }
     
+    //Vérifier le login et le mdp de user pour se connecter
     @override
     public User login(User user) {
         Connection connexion = null;
@@ -100,6 +102,125 @@ public class UserDAOImpl implements UserDAO {
     
 }
     
+    //Chercher un user en se basant sur son cin
+	@Override
+	public User find(String cin) throws DAOException {
+        Connection connexion = null;
+        PreparedStatement preparedStatement = null;
+	    ResultSet resultSet = null;
+	    User  uti = null;
+        try {
+            connexion = daoFactory.getConnection();
+            preparedStatement = connexion.prepareStatement("select * from user where cinU=?;");
+            preparedStatement.setString(1, cin);
+
+            resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()) {
+            	uti = map( resultSet );	
+            }
+  
+        } catch (SQLException e) {
+            e.printStackTrace();}
+        
+    	
+	    return uti;
+		
+	}
+    
+    
+    
+    //Lister tous les clients (et non pas les admins)
+    @Override
+	public List < User> lister() {
+		
+		 List <  User > clients = new ArrayList < >();
+		    Connection connexion = null;
+		    PreparedStatement preparedStatement = null;
+		    ResultSet resultSet = null;
+		    User client = null;
+
+		    try {
+		        
+		        connexion = daoFactory.getConnection();
+		        preparedStatement = connexion.prepareStatement("select * from user where typeU=?;");
+		        preparedStatement.setString(1, "Client");
+		       resultSet = preparedStatement.executeQuery();
+		       
+		          
+		        while ( resultSet.next() ) {
+		        	client = map( resultSet );
+		        	clients.add(client);
+		        }
+		    } catch ( SQLException e ) {
+		        throw new DAOException( e );
+		    } finally {
+		        
+		    }
+
+
+		    return clients;
+		}
+    
+    //Update du profil de user without pwd
+    @override
+    public void updateProfile(User user)  throws DAOException {
+	    Connection connexion = null;
+	    PreparedStatement preparedStatement = null;
+
+	    try {
+		       
+	        connexion = daoFactory.getConnection();
+	        preparedStatement = connexion.prepareStatement("update user set nomU=?, prenomU=?, sexeU=?, phoneU=?, emailU=?, loginU=? where cinU=?;");
+	        preparedStatement.setString(1,user.getNomU());
+	        preparedStatement.setString(2,user.getPrenomU());
+	        preparedStatement.setString(3,user.getSexeU());
+	        preparedStatement.setString(4,user.getPhoneU());
+	        preparedStatement.setString(5,user.getEmailU());
+	        preparedStatement.setString(6,user.getLoginU());
+	        preparedStatement.setString(7,user.getCinU());
+	        
+	        int count=preparedStatement.executeUpdate(); 
+
+	        System.out.println("count="+count);
+	        
+	        } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	        
+	    }  
+    	return;
+    }
+    //Update du profil de user without pwd
+    @override
+    public void updatePwd(String cin,String mdp)  throws DAOException {
+	    Connection connexion = null;
+	    PreparedStatement preparedStatement = null;
+
+	    try {
+		       
+	        connexion = daoFactory.getConnection();
+	        preparedStatement = connexion.prepareStatement("update user set pwdU=? where cinU=?;");
+	        String hashedPwd;
+			try {
+				hashedPwd = sha1(mdp);
+				preparedStatement.setString(1,hashedPwd );
+			} catch (NoSuchAlgorithmException e) {
+				e.printStackTrace();
+			}
+			
+	        preparedStatement.setString(2,cin);
+	        
+	        int count=preparedStatement.executeUpdate(); 
+
+	        System.out.println("count="+count);
+	        
+	        } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	        
+	    }  
+    	return;
+    }
 	private static User map( ResultSet resultSet ) throws SQLException {
 		User user = new User();
 		
@@ -114,5 +235,8 @@ public class UserDAOImpl implements UserDAO {
 		user.setTypeU(resultSet.getString ("typeU" ));
 		return user;
 	}
+	
+
+
 		
 }	

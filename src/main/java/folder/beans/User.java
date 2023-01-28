@@ -11,21 +11,7 @@ public class User {
 	private String loginU;
 	private String pwdU;
 	private String typeU;
-	/*
-	public User(String cinU, String nomU, String prenomU, String sexeU, String phoneU, String emailU, String loginU,
-			String pwdU, String typeU) {
-		super();
-		this.cinU = cinU;
-		this.nomU = nomU;
-		this.prenomU = prenomU;
-		this.sexeU = sexeU;
-		this.phoneU = phoneU;
-		this.emailU = emailU;
-		this.loginU = loginU;
-		this.pwdU = pwdU;
-		this.typeU = typeU;
-	}
-	*/
+
 	
 	public String getCinU() {
 		return cinU;

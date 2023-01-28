@@ -26,8 +26,7 @@ public class Pets extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	LocalDate dateCourrante= java.time.LocalDate.now();
     public static final int TAILLE_TAMPON = 10240;
-    //public static final String CHEMIN_FICHIERS = "C:/Users/Bilon Ikram/Documents/Projet jee/pets/";
-    public static final String CHEMIN_FICHIERS = "C:/Users/Bilon Ikram/eclipse-workspace/Projet/src/main/webapp/Pets_Images/";
+    public static final String CHEMIN_FICHIERS = "C:/Users/Bilon Ikram/eclipse-workspace/Projet_S3/src/main/webapp/Pets_Images/";
     public static final String PetsImages="Pets_Images/";
     private FreeDaoImpl freeDAO;
     public void init() throws ServletException {
@@ -45,7 +44,7 @@ public class Pets extends HttpServlet {
     
     public void addForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 		request.setAttribute("dateCourrante", dateCourrante);
-		this.getServletContext().getRequestDispatcher("/WEB-INF/addAnimalForm.jsp").forward(request, response);	
+		this.getServletContext().getRequestDispatcher("/AdminSpace/addAnimalForm.jsp").forward(request, response);	
     }
     
     // Traitement des données saisies dans le formulaire d'ajout
@@ -80,20 +79,10 @@ public class Pets extends HttpServlet {
     //Affichage de tous les animaux
     
     public void allPets(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	/*String[] options= {"all","all"};
-    	String type=request.getParameter("type");
-    	String statut=request.getParameter("statut");
-    	if (type!=null) {
-    		options[0]=type;
-    	}
-    	if (statut!=null) {
-    		options[1]=statut;
-    	}
-    	*/
     	List<Animal> pets= freeDAO.lister();
     	request.setAttribute("all",pets);
     	request.setAttribute("PetsImages", PetsImages);
-    	this.getServletContext().getRequestDispatcher("/WEB-INF/allPets.jsp").forward( request, response );
+    	this.getServletContext().getRequestDispatcher("/AdminSpace/allPets.jsp").forward( request, response );
 
     }
     //Suppression d'un animal
@@ -113,7 +102,7 @@ public class Pets extends HttpServlet {
 		pet=freeDAO.find(Integer.valueOf(id));
 		request.setAttribute("pet",pet);
 		
-		this.getServletContext().getRequestDispatcher("/WEB-INF/editPet.jsp").forward(request, response);	
+		this.getServletContext().getRequestDispatcher("/AdminSpace/editPet.jsp").forward(request, response);	
     }
     
 
@@ -200,12 +189,13 @@ public class Pets extends HttpServlet {
 		        	 imgPet.ecrireFichier(imgPet.getPart(), imgPet.getNomFichier(), imgPet.getCHEMIN_FICHIERS());
 		        	 pet.setPhoto(imgPet.getNomFichier());
 		        	 freeDAO.create(pet);
+		        	 //response.sendRedirect("Pets");
 		        	 response.sendRedirect("Pets");
 		         }
         		 else {
        			  	String extErr="Veuillez choisir une photo d'extension jpg, png, jpeg";
        			  	request.setAttribute("extErr", extErr);
-       			  	this.getServletContext().getRequestDispatcher("/WEB-INF/addAnimalForm.jsp").forward(request, response);	
+       			  	this.getServletContext().getRequestDispatcher("/AdminSpace/addAnimalForm.jsp").forward(request, response);	
        			 }
 		    }
        }
@@ -236,7 +226,7 @@ public class Pets extends HttpServlet {
         		 else {
        			  	String extErr="Veuillez choisir une photo d'extension jpg, png, jpeg";
        			  	request.setAttribute("extErr", extErr);
-       			  	this.getServletContext().getRequestDispatcher("/WEB-INF/editPet.jsp").forward(request, response);	
+       			  	this.getServletContext().getRequestDispatcher("/AdminSpace/editPet.jsp").forward(request, response);	
        			 }
 		    }
 		    else {
