@@ -16,5 +16,8 @@ public interface FreeDAO {
 	void delete(int id,String img ) throws DAOException;
 	 void update(Animal animal,boolean fileSelected)  throws DAOException;
 	 Animal find( int id ) throws DAOException;
+	 
+	 //List<Animal> dispoPets(String type,String race,String sexe);
+	 
 
 	}

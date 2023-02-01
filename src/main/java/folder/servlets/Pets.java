@@ -1,5 +1,4 @@
 package folder.servlets;
-
 import jakarta.servlet.ServletException;
 
 
@@ -24,7 +23,7 @@ import folder.beans.Animal;
 
 public class Pets extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	LocalDate dateCourrante= java.time.LocalDate.now();
+	LocalDate dateCourrante= java.time.LocalDate.now(); //date courante
     public static final int TAILLE_TAMPON = 10240;
     public static final String CHEMIN_FICHIERS = "C:/Users/Bilon Ikram/eclipse-workspace/Projet_S3/src/main/webapp/Pets_Images/";
     public static final String PetsImages="Pets_Images/";
@@ -55,7 +54,7 @@ public class Pets extends HttpServlet {
 	    pet.setNom(request.getParameter("nomPet"));
 	    pet.setSexe(request.getParameter("sexePet"));
 	    pet.setRace(request.getParameter("racePet"));
-	    pet.setDetail(request.getParameter("detailPet"));
+	    //pet.setDetail(request.getParameter("detailPet"));
 	    pet.setStatut(request.getParameter("statutPet"));
 	    pet.setPrix(request.getParameter("prixPet"));
 	    pet.setDateNaissance(request.getParameter("datePet"));
@@ -91,8 +90,16 @@ public class Pets extends HttpServlet {
 		String id= request.getParameter("id");
 		String img= request.getParameter("img");
 		String path= CHEMIN_FICHIERS+img;
-		freeDAO.delete(Integer.valueOf(id),path);
-		response.sendRedirect("Pets");
+		try{
+			int idPet=Integer.valueOf(id);
+			freeDAO.delete(idPet,path);
+			response.sendRedirect("Pets");
+		} catch(NumberFormatException ex){ // handle your exception
+			System.out.println("Something went wrong in delete fct regarding idPet");
+		}
+		
+		//freeDAO.delete(idPet,path);
+		//response.sendRedirect("Pets");
     }
     //Affichage du formulaire de modification
     
@@ -116,7 +123,7 @@ public class Pets extends HttpServlet {
 	    pet.setNom(request.getParameter("nomPet"));
 	    pet.setSexe(request.getParameter("sexePet"));
 	    pet.setRace(request.getParameter("racePet"));
-	    pet.setDetail(request.getParameter("detailPet"));
+	    //pet.setDetail(request.getParameter("detailPet"));
 	    pet.setStatut(request.getParameter("statutPet"));
 	    pet.setPrix(request.getParameter("prixPet"));
 	    pet.setDateNaissance(request.getParameter("datePet"));
@@ -125,6 +132,36 @@ public class Pets extends HttpServlet {
 
 
         //response.sendRedirect("Pets");	
+    }
+    
+    //Affichage du formulaire d'ajout
+    
+    public void searchPet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+    	request.setAttribute("firsTime","vrai");
+		this.getServletContext().getRequestDispatcher("/UserSpace/faireRes.jsp").forward(request, response);	
+    }
+    
+    public void dispoPets(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+    	String typePet=request.getParameter("typePet");
+    	String racePet=request.getParameter("race"+typePet);
+    	String sexePet=request.getParameter("sexePet");
+    	String agePet=request.getParameter("age"+typePet);
+    	String statutPet="Disponible";
+    	System.out.println(typePet+" "+racePet+ " "+sexePet+ " "+agePet+" "+statutPet);
+    	List<Animal> pets= freeDAO.listDispPets(typePet, racePet, sexePet, agePet, statutPet);
+    	int length=pets.size();
+    	request.setAttribute("firsTime","faux");
+    	request.setAttribute("all",pets);
+    	request.setAttribute("size",length);
+    	request.setAttribute("type",typePet );
+    	request.setAttribute("race",racePet );
+    	request.setAttribute("sexe",sexePet );
+    	request.setAttribute("age",agePet );
+    	request.setAttribute("PetsImages", PetsImages);
+    	this.getServletContext().getRequestDispatcher("/UserSpace/faireRes.jsp").forward( request, response );
+    	System.out.println("dans la fct dispoPets");
+
+    	
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -142,7 +179,10 @@ public class Pets extends HttpServlet {
 			    break;
 		  case "edit":
 			    this.editForm(request, response);
-			    break;    
+			    break;   
+		  case "searchPet":
+			  this.searchPet(request, response);
+			  break;
 		default:
 			this.allPets(request, response);
 			
@@ -165,6 +205,12 @@ public class Pets extends HttpServlet {
 			    this.update(request, response);
 			    break;
 			    
+		  case "dispoPets":
+			  this.dispoPets(request, response);
+			  break;
+			    
+			    
+			   
 		  case "cancel":
 			    this.cancelAdd(request, response);			    
 			    break;
@@ -195,7 +241,7 @@ public class Pets extends HttpServlet {
         		 else {
        			  	String extErr="Veuillez choisir une photo d'extension jpg, png, jpeg";
        			  	request.setAttribute("extErr", extErr);
-       			  	this.getServletContext().getRequestDispatcher("/AdminSpace/addAnimalForm.jsp").forward(request, response);	
+       			  	this.getServletContext().getRequestDispatcher("/AdminSapce/addAnimalForm.jsp").forward(request, response);	
        			 }
 		    }
        }

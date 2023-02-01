@@ -11,7 +11,7 @@ public class Animal {
 	private String sexe;
 	private String dateNaissance;
 	private String photo;
-	private String detail;
+	//private String detail;
 	private String prix;
 	private String statut;
 	
@@ -62,12 +62,7 @@ public class Animal {
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
-	public String getDetail() {
-		return detail;
-	}
-	public void setDetail(String detail) {
-		this.detail = detail;
-	}
+
 	public String getPrix() {
 		return prix;
 	}

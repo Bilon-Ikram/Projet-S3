@@ -70,8 +70,8 @@
                             <div class="mb-3">
                                 <label for="typePet" class="form-label">Type</label>
                                 <select class="form-select" name="typePet" id="typePet">
-                                    <option value="Chat" <c:if test="${pet.getType()== 'cat'}"><c:out value="selected" /></c:if>>Chat</option>
-                                    <option value="Chien" <c:if test="${pet.getType()== 'dog'}"><c:out value="selected" /></c:if>>Chien</option>
+                                    <option value="Chat" <c:if test="${pet.getType()== 'Chat'}"><c:out value="selected" /></c:if>>Chat</option>
+                                    <option value="Chien" <c:if test="${pet.getType()== 'Chien'}"><c:out value="selected" /></c:if>>Chien</option>
                                 </select>
                             </div>
                         </div>
