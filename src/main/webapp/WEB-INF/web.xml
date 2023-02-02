@@ -35,5 +35,24 @@
     <servlet-name>Login</servlet-name>
     <url-pattern>/Login</url-pattern>
   </servlet-mapping>
-
+  <servlet>
+    <description></description>
+    <display-name>Reserv</display-name>
+    <servlet-name>Reserv</servlet-name>
+    <servlet-class>folder.servlets.Reserv</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Reserv</servlet-name>
+    <url-pattern>/Reserv</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>JspToPdfServlet</display-name>
+    <servlet-name>JspToPdfServlet</servlet-name>
+    <servlet-class>folder.servlets.JspToPdfServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JspToPdfServlet</servlet-name>
+    <url-pattern>/JspToPdfServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

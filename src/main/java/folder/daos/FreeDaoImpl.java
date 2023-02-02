@@ -177,16 +177,17 @@ public class FreeDaoImpl implements FreeDAO {
 		        String dateLimite=getDateLimiteP(type,race);
 		        System.out.println(dateLimite);
 		        if(age.equals("Chaton") || age.equals("Chiot")) {
-		        	preparedStatement = connexion.prepareStatement("select * from animal where type=? and race=? and sexe=? and date_naissance >= ?;");
+		        	preparedStatement = connexion.prepareStatement("select * from animal where type=? and race=? and sexe=? and date_naissance >= ? and statut=?;");
 		        }
 		        else {
-		        	preparedStatement = connexion.prepareStatement("select * from animal where type=? and race=? and sexe=? and date_naissance < ?;");
+		        	preparedStatement = connexion.prepareStatement("select * from animal where type=? and race=? and sexe=? and date_naissance < ? and statut=?;");
 		        }
 		        
 		        preparedStatement.setString(1, type);
 		        preparedStatement.setString(2, race);
 		        preparedStatement.setString(3, sexe);
 		        preparedStatement.setString(4, dateLimite);
+		        preparedStatement.setString(5, statut);
 		        resultSet = preparedStatement.executeQuery();
 		       
 		        int i=0;  
@@ -272,6 +273,26 @@ public class FreeDaoImpl implements FreeDAO {
 		}
 		return dateLimite;
 		
+	}
+	
+	//Changer le statut d'un animal pet
+	@override
+	public void resPet(int id,String statut ) throws DAOException{
+	    Connection connexion = null;
+	    PreparedStatement preparedStatement = null;
+		final String SQL_UPDATE ="UPDATE animal SET statut=? WHERE id=?";
+	    try {
+		       
+	        connexion = daoFactory.getConnection();
+	        preparedStatement = connexion.prepareStatement(SQL_UPDATE);
+	        preparedStatement.setString(1,statut);
+	        preparedStatement.setInt(2,id);
+	        preparedStatement.executeUpdate(); 
+	    } catch ( SQLException e ) {
+	        throw new DAOException( e );
+	    } finally {
+	        
+	    }   	    
 	}
 	
 	@Override

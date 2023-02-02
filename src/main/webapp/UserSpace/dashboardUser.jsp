@@ -15,16 +15,12 @@
                 </a>
                 <div class="navbar-nav w-100">
                    <div class="nav-item dropdown">
-                        <a id="petsL" href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-cart-shopping"></i>Achat</a>
+                        <a id="res" href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-cart-shopping"></i>Réservation</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a id="" href="Pets" class="dropdown-item">Liste</a>
-                            <a id="" href="Pets?action=searchPet" class="dropdown-item">Ajouter une demande</a>
+                            <a id="allRes" href="Reserv?action=showRes&cin=<%= session.getAttribute("cinU")%>" class="dropdown-item">Mes réservations</a>
+                            <a id="addRes" href="Pets?action=searchPet" class="dropdown-item">Faire une réservation</a>
                         </div>
                     </div>
-                
-            
-                    <a href="#" class="nav-item nav-link"><i class="fa-solid fa-bag-shopping"></i>Ventes</a>
-                    <a href="#" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping"></i>Achat</a>
                     <a href="Login?action=out" class="nav-item nav-link"><i class="fa-sharp fa-solid fa-arrow-right-from-bracket"></i>Log out</a>
                     
                 </div>

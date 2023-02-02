@@ -72,6 +72,8 @@ public class Login extends HttpServlet {
     	else {
     		HttpSession session=request.getSession();
     		session.setAttribute("cinU", uti.getCinU());
+    		session.setAttribute("nomU", uti.getNomU());
+    		session.setAttribute("prenomU", uti.getPrenomU());
     		session.setAttribute("loginU", uti.getLoginU());
     		session.setAttribute("typeU", uti.getTypeU());
     		
@@ -83,7 +85,8 @@ public class Login extends HttpServlet {
     		else {
     			System.out.println("Dans espace client");
     			//on va chnager cette page par une autre par défaut: par exemple réservation.
-    			this.getServletContext().getRequestDispatcher("/UserSpace/home.jsp").forward( request, response );
+    			response.sendRedirect("Reserv");
+    			//this.getServletContext().getRequestDispatcher("/UserSpace/home.jsp").forward( request, response );
     		}
     		
     		

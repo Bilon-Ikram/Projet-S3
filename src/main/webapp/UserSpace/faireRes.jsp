@@ -15,6 +15,17 @@
 		.content{
         	background-color: #edf5f582;
         }
+        #res {
+        	color: #fff;
+    		background: var(--dark);
+    		border-color: #fff;
+        }
+        
+        #addRes {
+            color: #fff;
+    		background: var(--dark);
+        }        
+        
         .inner-content {
 			display:flex;
 			/*border: 1px solid red;*/
@@ -159,8 +170,76 @@
 			          	</table>			          
 					  </div>
 					  <div style="text-align:center">
-					  	<a href="#" class="btn btn-dark" >Réserver</a>
+					  	<a href='Pets?action=validRes&id=<c:out value="${pet.getId()}"/>' class="btn btn-dark" data-bs-toggle="modal" data-bs-target='#petModal<c:out value="${boucle.count}" />' >Réserver</a>
 					  </div>
+					<div class="modal fade" id='petModal<c:out value="${boucle.count}" />' tabindex="-1" aria-labelledby="petModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" style="width: 360px;">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title text-center" id="petModalLabel">Validation réservation :</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>							
+								<div class="modal-body">
+	            					<img src='<c:out value="${PetsImages}${pet.getPhoto()}"/>' class="rounded mx-auto d-block" style="width: 80px; height: 80px;">
+									<div class="info-pet" style="width:70%;margin-top:8px;margin-left:70px;margin-right:auto;border=1px solid red;">
+										<div class="row">
+											<div class="col-md-4">
+												<B>Race </B>
+											</div>
+											
+											<div class="col-md-8">
+												<B>:</B> <c:out value="${pet.getRace()}" />
+											</div>										
+										</div>
+										<div class="row">
+											<div class="col-md-4">
+												<B>Sexe </B>
+											</div>
+											
+											<div class="col-md-8">
+												<B>:</B> <c:out value="${pet.getSexe()}" />
+											</div>										
+										</div>										
+										<div class="row">
+											<div class="col-md-4">
+												<B>Nom </B>
+											</div>
+											
+											<div class="col-md-8">
+												<B>:</B> <c:out value="${pet.getNom()}" />
+											</div>										
+										</div>										
+										<div class="row">
+											<div class="col-md-4">
+												<B>DDN </B>
+											</div>
+											
+											<div class="col-md-8">
+												<B>:</B> <c:out value="${pet.getDateNaissance()}" />
+											</div>										
+										</div>	
+										
+										<div class="row">
+											<div class="col-md-4">
+												<B>Prix </B>
+											</div>
+											
+											<div class="col-md-8">
+												<B>:</B> <c:out value="${pet.getPrix()}" />
+											</div>										
+										</div>										
+																			
+									</div>
+
+								</div>
+								<div class="modal-footer">
+								<button type="button" class="btn btn-success" ><a style="text-decoration:none;color:white;" href='Reserv?action=ajouRes&idPet=<c:out value="${pet.getId()}"/>&cin=<%= session.getAttribute("cinU")%>'>Valider</a></button>								
+								
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+								</div>
+							</div>
+						</div>
+					</div>					  
 			        
 			      </div>
 			    </div>

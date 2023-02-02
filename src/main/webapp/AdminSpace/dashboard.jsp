@@ -23,8 +23,7 @@
                     </div>
                 
                     <a id="clients" href="Login?action=clients" class="nav-item nav-link"><i class="fa-solid fa-users"></i>Clients</a>
-                    <a href="#" class="nav-item nav-link"><i class="fa-solid fa-bag-shopping"></i>Ventes</a>
-                    <a href="#" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping"></i>Achat</a>
+                    <a id="allRes" href="Reserv?action=showResAdmin" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping"></i>Réservations</a>
                     <a href="Login?action=out" class="nav-item nav-link"><i class="fa-sharp fa-solid fa-arrow-right-from-bracket"></i>Log out</a>
                     
                 </div>

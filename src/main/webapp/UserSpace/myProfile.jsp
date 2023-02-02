@@ -124,7 +124,7 @@
                 <!-- Card footer -->
                 <div class="card-footer text-center">
                 <button type="submit" class="btn btn-danger me-4">Enregistrer</button>
-                <button type="button" class="btn btn-primary "><a style="text-decoration:none;color:white;" href='#'>Annuler</a></button>                   
+                <button type="button" class="btn btn-primary "><a style="text-decoration:none;color:white;" href='Reserv'>Annuler</a></button>                   
                 </div>
             </form>
         </div>

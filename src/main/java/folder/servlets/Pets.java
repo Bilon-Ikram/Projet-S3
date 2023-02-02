@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
 import java.io.File;
@@ -108,7 +109,13 @@ public class Pets extends HttpServlet {
 		String id = request.getParameter("id");
 		pet=freeDAO.find(Integer.valueOf(id));
 		request.setAttribute("pet",pet);
-		
+		HttpSession session=request.getSession();
+		String cin = (String) session.getAttribute("cinU");
+		String nom = (String) session.getAttribute("nomU");
+		String prenom = (String) session.getAttribute("prenomU");
+		request.setAttribute("cin",cin);
+		request.setAttribute("nom",nom);
+		request.setAttribute("prenom",prenom);
 		this.getServletContext().getRequestDispatcher("/AdminSpace/editPet.jsp").forward(request, response);	
     }
     
@@ -141,6 +148,7 @@ public class Pets extends HttpServlet {
 		this.getServletContext().getRequestDispatcher("/UserSpace/faireRes.jsp").forward(request, response);	
     }
     
+    //Pour visualiser les animaux disponibles à réserver
     public void dispoPets(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
     	String typePet=request.getParameter("typePet");
     	String racePet=request.getParameter("race"+typePet);
@@ -164,6 +172,24 @@ public class Pets extends HttpServlet {
     	
     }
     
+    public void validRes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Animal pet=new Animal();
+		HttpSession session=request.getSession();
+		String id = request.getParameter("id");
+		pet=freeDAO.find(Integer.valueOf(id));
+		request.setAttribute("PetsImages", PetsImages);
+		request.setAttribute("pet", pet);
+		String cin=(String)session.getAttribute("cinU");
+		String nom=(String)session.getAttribute("nomU");
+		String prenom=(String)session.getAttribute("prenomU");
+		request.setAttribute("cin", cin);
+		request.setAttribute("nom", nom);
+		request.setAttribute("prenom", prenom);
+    	this.getServletContext().getRequestDispatcher("/UserSpace/validerRes.jsp").forward( request, response );
+    	
+    }
+    
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//request.setAttribute("dateCourrante", dateCourrante);
 		//this.getServletContext().getRequestDispatcher("/WEB-INF/addAnimalForm.jsp").forward(request, response);	
@@ -182,6 +208,10 @@ public class Pets extends HttpServlet {
 			    break;   
 		  case "searchPet":
 			  this.searchPet(request, response);
+			  break;
+			  
+		  case "validRes":
+			  this.validRes(request, response);
 			  break;
 		default:
 			this.allPets(request, response);

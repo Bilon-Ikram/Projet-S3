@@ -82,4 +82,9 @@ public class DAOFactory {
     public UserDAOImpl getUSerDao() {
         return new UserDAOImpl(this );
     }
+   
+    public ResDAOImpl getResDao() {
+        return new ResDAOImpl(this);
+    }    
+ 
 }

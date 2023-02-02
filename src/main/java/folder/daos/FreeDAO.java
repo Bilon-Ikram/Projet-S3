@@ -14,6 +14,7 @@ public interface FreeDAO {
 	//Freelencer find( String nom ) throws DAOException;
 	List<Animal> lister();
 	void delete(int id,String img ) throws DAOException;
+	void resPet(int id,String statut ) throws DAOException;
 	 void update(Animal animal,boolean fileSelected)  throws DAOException;
 	 Animal find( int id ) throws DAOException;
 	 
