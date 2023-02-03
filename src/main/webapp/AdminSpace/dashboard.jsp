@@ -2,7 +2,7 @@
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar navbar-dark">
                 <a href="#" class="navbar-brand mx-4 mb-3">
-                    <h3><i class="fa-sharp fa-solid fa-store"></i>PetStore</h3>
+                    <h3><i class="fa-sharp fa-solid fa-store"></i>UrPet</h3>
                 </a>
 				<a href="Login?action=profile" class="nav-item nav-link">
                 <div class="user-account">

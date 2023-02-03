@@ -172,6 +172,36 @@ public class Pets extends HttpServlet {
     	
     }
     
+    //afficher le formulaire de recherche des pets dans le home page
+    public void searchPetHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+    	request.setAttribute("firsTime","vrai");
+		this.getServletContext().getRequestDispatcher("/pets.jsp").forward(request, response);	
+    }    
+    
+    //affiche les pets dispo dans le home page
+    public void dispoPetsHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
+    	String typePet=request.getParameter("typePet");
+    	String racePet=request.getParameter("race"+typePet);
+    	String sexePet=request.getParameter("sexePet");
+    	String agePet=request.getParameter("age"+typePet);
+    	String statutPet="Disponible";
+    	System.out.println(typePet+" "+racePet+ " "+sexePet+ " "+agePet+" "+statutPet);
+    	List<Animal> pets= freeDAO.listDispPets(typePet, racePet, sexePet, agePet, statutPet);
+    	int length=pets.size();
+    	request.setAttribute("firsTime","faux");
+    	request.setAttribute("all",pets);
+    	request.setAttribute("size",length);
+    	request.setAttribute("type",typePet );
+    	request.setAttribute("race",racePet );
+    	request.setAttribute("sexe",sexePet );
+    	request.setAttribute("age",agePet );
+    	request.setAttribute("PetsImages", PetsImages);
+    	this.getServletContext().getRequestDispatcher("/pets.jsp").forward( request, response );
+    	System.out.println("dans la fct dispoPets");
+
+    	
+    }    
+    
     public void validRes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Animal pet=new Animal();
 		HttpSession session=request.getSession();
@@ -210,6 +240,10 @@ public class Pets extends HttpServlet {
 			  this.searchPet(request, response);
 			  break;
 			  
+		  case "searchPetHome":
+			  this.searchPetHome(request, response);
+			  break;			 
+			  
 		  case "validRes":
 			  this.validRes(request, response);
 			  break;
@@ -238,7 +272,10 @@ public class Pets extends HttpServlet {
 		  case "dispoPets":
 			  this.dispoPets(request, response);
 			  break;
-			    
+			  
+		  case "dispoPetsHome":
+			  this.dispoPetsHome(request, response);
+			  break;			    
 			    
 			   
 		  case "cancel":

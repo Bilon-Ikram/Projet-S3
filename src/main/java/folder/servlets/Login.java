@@ -33,7 +33,8 @@ public class Login extends HttpServlet {
     
     //Affichage du formulaire d'ajout d'un compte utilisateur
     public void addFormUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
-    	this.getServletContext().getRequestDispatcher("/WEB-INF/signUp.jsp").forward(request, response);
+    	//this.getServletContext().getRequestDispatcher("/WEB-INF/signUp.jsp").forward(request, response);
+    	this.getServletContext().getRequestDispatcher("/signUp.jsp").forward(request, response);
     }
     
     //Traitement des données d'ajout d'un compte utilisateur
@@ -55,7 +56,8 @@ public class Login extends HttpServlet {
     
     //Affichage du formulaire d'authentification
     public void signInForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
-    	this.getServletContext().getRequestDispatcher("/WEB-INF/signIn.jsp").forward(request, response);
+    	//this.getServletContext().getRequestDispatcher("/WEB-INF/signIn.jsp").forward(request, response);
+    	this.getServletContext().getRequestDispatcher("/signIn.jsp").forward(request, response);
     }
 
     //Vérification du username et password
