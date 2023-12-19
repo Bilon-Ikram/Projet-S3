@@ -23,7 +23,7 @@ public class DAOFactory {
     DAOFactory( String url, String username, String password ) {
         this.url = url;
         this.username = username;
-        this.password = password;
+        this.password=password;
     }
 
     /*

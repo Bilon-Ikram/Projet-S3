@@ -40,7 +40,7 @@ public class Login extends HttpServlet {
     //Traitement des données d'ajout d'un compte utilisateur
     public void addUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 		User user= new User();
-		user.setCinU(request.getParameter("CIN"));
+		user.setCinU(request.getParameter("cinUser"));
 		user.setNomU(request.getParameter("nomU"));
 		user.setPrenomU(request.getParameter("prenomU"));
 		user.setSexeU(request.getParameter("sexeU"));
