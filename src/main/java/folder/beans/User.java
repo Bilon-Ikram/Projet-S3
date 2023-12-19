@@ -1,10 +1,14 @@
 package folder.beans;
-
-
+/*
+/**
+ * Commentaire javadoc
+ * This class provides information about a user, including their
+ * name, email, and other relevant details.
+ * 
+ */
 public class User {
-	private String cinU;
-	private String nomU;
-	private String prenomU;
+	private String cinU,nomU;
+	private String PRENOMU;
 	private String sexeU;
 	private String phoneU;
 	private String emailU;
@@ -17,19 +21,20 @@ public class User {
 		return cinU;
 	}
 	public void setCinU(String cinU) {
-		this.cinU = cinU;
+		this.cinU=cinU;
 	}
 	public String getNomU() {
 		return nomU;
 	}
+	
 	public void setNomU(String nomU) {
 		this.nomU = nomU;
 	}
-	public String getPrenomU() {
-		return prenomU;
+	public String getPRENOMU() {
+		return PRENOMU;
 	}
-	public void setPrenomU(String prenomU) {
-		this.prenomU = prenomU;
+	public void setPRENOMU(String PRENOMU) {
+		this.PRENOMU = PRENOMU;
 	}
 	public String getSexeU() {
 		return sexeU;
@@ -65,7 +70,7 @@ public class User {
 		return typeU;
 	}
 	public void setTypeU(String typeU) {
-		this.typeU = typeU;
+		this.typeU =typeU;
 	}
 
 	
