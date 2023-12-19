@@ -9,11 +9,10 @@ package folder.beans;
 public class User {
   private String cinU;
   private String nomU;
-	private String PRENOMU;
+  private String PRENOMU;
 	private String sexeU;
 	private String phoneU;
-	private String emailU;
-	private String loginU;
+	private String emailU,loginU;
 	private String pwdU;
 	private String typeU;
 
@@ -65,9 +64,11 @@ public class User {
 	public String getPwdU() {
 		return pwdU;
 	}
+	
 	public void setPwdU(String pwdU) {
 		this.pwdU = pwdU;
 	}
+	
 	public String getTypeU() {
 		return typeU;
 	}

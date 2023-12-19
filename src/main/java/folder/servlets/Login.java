@@ -40,14 +40,18 @@ public class Login extends HttpServlet {
     //Traitement des données d'ajout d'un compte utilisateur
     public void addUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
 		User user= new User();
-		user.setCinU(request.getParameter("cinUser"));
+		user.setCinU(request.getParameter("CIN"));
 		user.setNomU(request.getParameter("nomU"));
 		user.setPrenomU(request.getParameter("prenomU"));
+
 		user.setSexeU(request.getParameter("genderU"));
+
 		user.setPhoneU(request.getParameter("phoneU"));
-		user.setEmailU(request.getParameter("emailUser"));
-		user.setLoginU(request.getParameter("loginU"));
-		user.setPwdU(request.getParameter("password"));
+
+		user.setEmailU(request.getParameter("emailU"));
+		user.setLoginU(request.getParameter("usernameUser"));
+		user.setPwdU(request.getParameter("mdpU"));
+
 		user.setTypeU("Client");
 		
 		userDAO.create(user);
