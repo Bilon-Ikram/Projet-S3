@@ -43,7 +43,7 @@ public class Login extends HttpServlet {
 		user.setCinU(request.getParameter("cinUser"));
 		user.setNomU(request.getParameter("nomU"));
 		user.setPrenomU(request.getParameter("prenomU"));
-		user.setSexeU(request.getParameter("sexeU"));
+		user.setSexeU(request.getParameter("genderU"));
 		user.setPhoneU(request.getParameter("phoneU"));
 		user.setEmailU(request.getParameter("emailUser"));
 		user.setLoginU(request.getParameter("loginU"));
